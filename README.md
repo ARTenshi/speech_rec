@@ -93,12 +93,14 @@ rosrun ros_whisper_vosk vosk_service.py
 In one terminal, subsribe to the topic:
 
 ```
+source ~/speech_ws/devel/setup.bash
 rostopic echo /speech_recognition/final_result
 ```
 
 And in a different terminal, call the service:
 
 ```
+source ~/speech_ws/devel/setup.bash
 rosservice call /speech_recognition/vosk_service "{}"
 ```
 
