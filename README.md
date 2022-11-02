@@ -5,7 +5,7 @@ This repo copies some of the README from original projects.
 
 ## Setup
 
-1. Create a venv of your choice.
+1. Create an env of your choice.
 
 e.g.
 
