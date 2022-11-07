@@ -12,7 +12,7 @@ from mmap import MAP_SHARED
 import rospy
 import rospkg
 import std_msgs.msg
-from ros_whisper_vosk.srv import GetSpeech
+from ros_whisper_vosk.srv import GetSpeech, GetFakeSpeech
 
 #VOSK
 import vosk_ros_model_downloader as downloader
@@ -59,7 +59,7 @@ def stream_callback(indata, frames, time, status):
     #"""This is called (from a separate thread) for each audio block."""
     q.put(bytes(indata))
         
-def callbackWhisperService(req):
+def callbackVoskService(req):
 
     predicted_text = ""
     with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=input_dev_num, dtype='int16',
@@ -82,8 +82,8 @@ def callbackWhisperService(req):
                 lentext = len(diction["text"])
 
                 if lentext > 2:
-                    predicted_text = diction["text"]
-                    rospy.loginfo(predicted_text)
+                    predicted_text = diction["text"].lstrip()
+                    print("You said: " + predicted_text)
                     isRecognized = True
                 else:
                     isRecognized = False
@@ -101,12 +101,22 @@ def callbackWhisperService(req):
     pub_final.publish(predicted_text)
     return predicted_text
 
+def callbackFakeVoskService(req):
+
+    predicted_text = req.text
+    predicted_text = predicted_text.lstrip()
+    print("You said: " + predicted_text)
+
+    pub_final.publish(predicted_text)
+    return predicted_text
+
 #Main
 def main():
     rospy.init_node('vosk_service')
   
     #Start ROS Services
-    rospy.Service("speech_recognition/vosk_service",GetSpeech, callbackWhisperService)
+    rospy.Service("speech_recognition/vosk_service",GetSpeech, callbackVoskService)
+    rospy.Service("speech_recognition/fake_vosk_service", GetFakeSpeech, callbackFakeVoskService)
     
     rospy.loginfo("Vosk Service Initialized")
     

@@ -27,6 +27,7 @@ add_message_files(
 add_service_files(
    FILES
    GetSpeech.srv
+   GetFakeSpeech.srv
 )
 
 ## Generate added messages and services with any dependencies listed here

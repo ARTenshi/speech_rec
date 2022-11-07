@@ -18,7 +18,7 @@ Then, clone this repository into the src folder:
 
 ```
 cd ~/speech_ws/src
-git clone https://github.com/ARTenshi/speech_rec.git .
+git clone https://github.com/ARTenshi/speech_rec.git
 ```
 
 2. Run ```pip install -r requirements.txt```
@@ -51,11 +51,39 @@ Services:
 /speech_recognition/vosk_service
 ```
 
+or 
+
+```
+/speech_recognition/whisper_service
+```
+
 of type `ros_whisper_vosk/GetSpeech` 
 
 where GetSpeech.srv:
 
 ```
+---
+string  data
+```
+
+And
+
+```
+/speech_recognition/fake_vosk_service
+```
+
+or 
+
+```
+/speech_recognition/fake_whisper_service
+```
+
+of type `ros_whisper_vosk/FakeGetSpeech` 
+
+where GetSpeech.srv:
+
+```
+string text
 ---
 string  data
 ```
@@ -86,14 +114,14 @@ rosrun ros_whisper_vosk vosk_service.py
 
 ### Usage
 
-**Command line example**
-
 In one terminal, subsribe to the topic:
 
 ```
 source ~/speech_ws/devel/setup.bash
 rostopic echo /speech_recognition/final_result
 ```
+
+**Command line Vosk example**
 
 And in a different terminal, call the service:
 
@@ -102,3 +130,25 @@ source ~/speech_ws/devel/setup.bash
 rosservice call /speech_recognition/vosk_service "{}"
 ```
 
+or
+
+```
+source ~/speech_ws/devel/setup.bash
+rosservice call /speech_recognition/fake_vosk_service "text: 'fake sentence'"
+```
+
+**Command line Whisper example**
+
+And in a different terminal, call the service:
+
+```
+source ~/speech_ws/devel/setup.bash
+rosservice call /speech_recognition/whisper_service "{}"
+```
+
+or
+
+```
+source ~/speech_ws/devel/setup.bash
+rosservice call /speech_recognition/fake_whisper_service "text: 'fake sentence'"
+```

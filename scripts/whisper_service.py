@@ -10,7 +10,7 @@ import argparse
 
 #ROS
 import std_msgs.msg
-from ros_whisper_vosk.srv import GetSpeech
+from ros_whisper_vosk.srv import GetSpeech, GetFakeSpeech
 
 import rospy
 import rospkg
@@ -67,11 +67,20 @@ def callbackWhisperService(req):
             result = audio_model.transcribe(save_path)
 
         if not args.verbose:
-            predicted_text = result["text"]
+            predicted_text = result["text"].lstrip()
             print("You said: " + predicted_text)
         else:
             print(result)
 
+    pub_final.publish(predicted_text)
+    return predicted_text
+
+def callbackFakeWhisperService(req):
+
+    predicted_text = req.text
+    predicted_text = predicted_text.lstrip()
+    print("You said: " + predicted_text)
+    
     pub_final.publish(predicted_text)
     return predicted_text
 
@@ -80,7 +89,8 @@ def main():
     rospy.init_node('whisper_service')
   
     #Start ROS Services
-    rospy.Service("speech_recognition/whisper_service",GetSpeech, callbackWhisperService)
+    rospy.Service("speech_recognition/whisper_service", GetSpeech, callbackWhisperService)
+    rospy.Service("speech_recognition/fake_whisper_service", GetFakeSpeech, callbackFakeWhisperService)
     
     rospy.loginfo("Whisper Service Initialized")
     
