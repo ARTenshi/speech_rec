@@ -102,7 +102,7 @@ To start a service (only one at a time), in a different terminal run:
 
 ```
 source ~/speech_ws/devel/setup.bash
-rosrun ros_whisper_vosk whisper_node.py --english
+rosrun ros_whisper_vosk whisper_service.py --english
 ```
 
 **Vosk**
