@@ -36,7 +36,7 @@ catkin_make
 
 ### Structure
 
-Topics:
+**Topics**
 
 ```
 /speech_recognition/final_result
@@ -45,7 +45,7 @@ Topics:
 of type `std_msgs/String`
 
 
-Services:
+**Services**
 
 ```
 /speech_recognition/vosk_service
