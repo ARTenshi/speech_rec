@@ -1,5 +1,5 @@
 # Speech Recognition
-This repo is based on [Whisper](https://github.com/openai/whisper) by OpenAI and on [whisper-mic](https://github.com/mallorbc/whisper_mic).  Also, it's based on [Vosk](https://alphacephei.com/vosk/) by Alpha-cephei an on [ros-vosk](https://github.com/alphacep/ros-vosk).
+This repo is based on [Whisper](https://github.com/openai/whisper) by OpenAI and on [whisper-mic](https://github.com/mallorbc/whisper_mic).  Also, it's based on [Vosk](https://alphacephei.com/vosk/) by Alpha-cephei and on [ros-vosk](https://github.com/alphacep/ros-vosk).
 
 ## Setup
 
